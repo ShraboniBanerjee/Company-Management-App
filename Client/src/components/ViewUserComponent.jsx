@@ -1,94 +1,51 @@
-import React, { Component } from 'react'
-import UserService from '../services/UserService'
+import React, { Component } from 'react';
+import UserService from '../services/UserService';
+import { Link } from 'react-router-dom';
+import DataGrid, { Column } from 'devextreme-react/data-grid';
 
 class ViewUserComponent extends Component {
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             id: this.props.match.params.id,
             user: {}
-        }
+        };
     }
 
-    componentDidMount(){
-        UserService.getUserById(this.state.id).then( res => {
-            this.setState({user: res.data});
-        })
+    componentDidMount() {
+        UserService.getUserById(this.state.id).then(res => {
+            this.setState({ user: res.data });
+        });
     }
 
     render() {
+        const { user } = this.state;
+
         return (
-            <div style={{padding:'60px'}}>
-                <br></br>
-                <div className = "card col-md-6 offset-md-3">
-                    <h3 className = "text-center"> View Details</h3>
-                    <div className = "card-body">
-                        <div className = "row">
-                            <label> User First Name: </label>
-                            <div> { this.state.user.firstName }</div>
-                        </div>
-                        <div className = "row">
-                            <label> User Last Name: </label>
-                            <div> { this.state.user.lastName }</div>
-                        </div>
-                        <div className = "row">
-                            <label> User Email ID: </label>
-                            <div> { this.state.user.email }</div>
-                        </div>
-                        <div className = "row">
-                            <label> Company Name: </label>
-                            <div> { this.state.user.companyName }</div>
-                        </div>
-                        <div className = "row">
-                            <label> Industry: </label>
-                            <div> { this.state.user.companyName }</div>
-                        </div>
-                        <div className = "row">
-                            <label> Primary Contact: </label>
-                            <div> { this.state.user.primaryContact }</div>
-                        </div>
-                        
-                        <div className = "row">
-                            <label> Address Line 1: </label>
-                            <div> { this.state.user.addressLine1 }</div>
-                        </div>
-                        
-                        <div className = "row">
-                            <label> Address Line 2: </label>
-                            <div> { this.state.user.addressLine2 }</div>
-                        </div>
-                        
-
-                        <div className = "row">
-                            <label> Address State: </label>
-                            <div> { this.state.user.addressState }</div>
-                        </div>
-                        
-                        <div className = "row">
-                            <label> Address City: </label>
-                            <div> { this.state.user.addressCity }</div>
-                        </div>
-
-                        <div className = "row">
-                            <label> Address Country: </label>
-                            <div> { this.state.user.addressCountry }</div>
-                        </div>
-
-                        <div className = "row">
-                            <label> Annual Revenue: </label>
-                            <div> { this.state.user.annualRevenue }</div>
-                        </div>
-                        <div className = "row">
-                            <label> Date Added: </label>
-                            <div> { this.state.user.date }</div>
-                        </div>
-                    </div>
-
-                </div>
+            <div style={{ padding: '60px' }}>
+    <h2 style={{ textAlign: 'center' }}>Company Details Page</h2>
+                <br />
+                <Link to="/users" className="btn btn-primary mb-3">Back</Link>
+            <br />
+                <DataGrid dataSource={[user]} showBorders={true}>
+                    <Column dataField="firstName" caption="User First Name" width={120} />
+                    <Column dataField="lastName" caption="User Last Name" width={120} />
+                    <Column dataField="email" caption="User Email ID" width={120} />
+                    <Column dataField="companyName" caption="Company Name" width={120} />
+                    <Column dataField="industry" caption="Industry" width={120} />
+                    <Column dataField="primaryContact" caption="Primary Contact" width={120}/>
+                    <Column dataField="addressLine1" caption="Address Line 1" width={120}/>
+                    <Column dataField="addressLine2" caption="Address Line 2" width={120} />
+                    <Column dataField="addressState" caption="Address State" width={120}/>
+                    <Column dataField="addressCity" caption="Address City" width={120}/>
+                    <Column dataField="addressCountry" caption="Address Country" width={140}/>
+                    <Column dataField="annualRevenue" caption="Annual Revenue $" width={170}/>
+                    <Column dataField="date" caption="Date Added"  width={120}/>
+                </DataGrid>
             </div>
-        )
+        );
     }
 }
 
-export default ViewUserComponent
+export default ViewUserComponent;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import UserService from '../services/UserService';
 import 'devextreme-react/text-area';
-import DateBox from 'devextreme-react/date-box';
+//import DateBox from 'devextreme-react/date-box';
 
 import { Row, Col } from 'react-bootstrap';
 
@@ -68,7 +68,17 @@ class CreateUserComponent extends Component {
         e.preventDefault();
         
         let user = { firstName: this.state.firstName, 
-            lastName: this.state.lastName, email: this.state.email };
+            lastName: this.state.lastName, email: this.state.email, companyName: this.state.companyName, 
+            industry: this.state.selectedIndustry,
+            primaryContact: this.state.primaryContact,
+            addressLine1: this.state.addressLine1,
+            addressLine2: this.state.addressLine2,
+            addressState: this.state.addressState,
+            addressCity: this.state.addressCity,
+            addressCountry: this.state.addressCountry,
+            annualRevenue: this.state.annualRevenue,
+            date: new Date(this.state.date).toISOString()
+        };
         console.log('user => ' + JSON.stringify(user));
      
         if (this.state.id === '_add') {
@@ -129,8 +139,9 @@ class CreateUserComponent extends Component {
         this.setState({ annualRevenue: event.target.value });
     }
    
-    changeDateHandler = (value) => {
-        this.setState({ date: value });
+    changeDateHandler = (e) => {
+        this.setState({ date: e.target.value });
+        console.log(e.target.value)
     }
     
     cancel() {
@@ -142,15 +153,15 @@ class CreateUserComponent extends Component {
 
     getTitle() {
         if (this.state.id === '_add') {
-            return <h3 className="text-center">Add Company List</h3>
+            return <h4 className="text-center">Add Your Data</h4>
         } else {
-            return <h3 className="text-center">Update Company List</h3>
+            return <h4 className="text-center">Update Your Data</h4>
         }
     }
     render() {
         return (
             <div style={{padding:'60px'}}>
-                 <h1 style={{ textAlign: 'center' }}>Homepage</h1>
+                 <h1 style={{ textAlign: 'center' }}>Add Company page</h1>
                 <br></br>
                 <div className="container">
                     <div className="row">
@@ -329,10 +340,12 @@ class CreateUserComponent extends Component {
 <Row>
     <Col>
         <div className="form-group">
-            <label>Date:</label>
-            <DateBox
+        <label style={{ display: 'block' }}>Date:</label>
+            <input type='date'
         value={this.state.date}
-        onValueChange={this.changeDateHandler}
+        onChange={this.changeDateHandler}
+        style={{ borderRadius: '0.25rem', border: '1px solid #ced4da', padding: '0.375rem 0.75rem', lineHeight: '1.5', fontSize: '1rem' }}
+      
     />
         </div>
     </Col>
