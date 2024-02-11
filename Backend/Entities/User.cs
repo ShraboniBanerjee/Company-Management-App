@@ -17,6 +17,9 @@ public class User
     public string AddressCity { get; set; }
     public string AddressCountry { get; set; }
     public string AnnualRevenue { get; set; }
-    public string Date { get; set; }
- 
+   
+    public DateTime Date { get; set; } 
+
+    public DateTimeOffset DateWithUtcOffset => new DateTimeOffset(Date, TimeSpan.Zero);
+    
 }
