@@ -44,6 +44,6 @@ public class CreateRequest
     public string AnnualRevenue { get; set; }
 
     [Required]
-    public string Date { get; set; } 
+        public DateTime Date { get; set; } 
 
 }
